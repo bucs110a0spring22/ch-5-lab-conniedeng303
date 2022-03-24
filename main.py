@@ -29,9 +29,30 @@ import random
 import time
 
 #########################################################
-#                   Your Code Goes Below                #
-#########################################################
 
+def drawSquare(myturtle=None, width=0, top_left_x=0, top_left_y=0):
+  myturtle.pendown()
+  
+def setupWindow(wn=None):
+  wn.setworldcoordinates(-1,-1,1,1)
+  wn.bgcolor("blue")
+  
+def drawLine(darty=None, x_start=0, y_start=0, x_end=0, y_end=0):
+  darty.penup()
+  darty.goto(x_start,y_start)
+  darty.pendown()
+  darty.forward(1)
+  darty.pendown()
+  darty(x_end,y_end)
+
+def drawCircle(dart=None, radius=0):
+  dart.goto(0,-1)
+  dart.circle(radius)
+
+
+
+def
+  
 
 
 #########################################################
