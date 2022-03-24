@@ -26,35 +26,91 @@ Functions you must implement:
 '''
 import turtle
 import random
-import time
 
-#########################################################
-
-def drawSquare(myturtle=None, width=0, top_left_x=0, top_left_y=0):
-  myturtle.pendown()
-  
 def setupWindow(wn=None):
   wn.setworldcoordinates(-1,-1,1,1)
-  wn.bgcolor("blue")
+
+def drawSquare(myturtle=None, width=0, top_left_x=0, top_left_y=0):
+  myturtle.reset()
+  myturtle.penup()
+  myturtle.goto(-1,-1)
+  myturtle.pendown()
+  myturtle.goto(top_left_x+width,top_left_y) 
+  myturtle.goto(top_left_x+width,top_left_y+width)
+  myturtle.goto(top_left_x,top_left_y+width)
+  myturtle.goto(top_left_x,top_left_y)
+  myturtle.penup()
   
-def drawLine(darty=None, x_start=0, y_start=0, x_end=0, y_end=0):
-  darty.penup()
-  darty.goto(x_start,y_start)
-  darty.pendown()
-  darty.forward(1)
-  darty.pendown()
-  darty(x_end,y_end)
-
-def drawCircle(dart=None, radius=0):
-  dart.goto(0,-1)
-  dart.circle(radius)
-
-
-
-def
+def drawLine(myturtle=None, x_start=0, y_start=0, x_end=0, y_end=0):
+  myturtle.penup()
+  myturtle.goto(x_start,y_start)
+  if (x_start == 0):
+    myturtle.setheading(90)
+  else:
+    myturtle.setheading(0)
+  myturtle.pendown()
+  myturtle.forward(2)
+  myturtle.penup()
+  # dart.goto(y_start,y_end)
   
+def drawCircle(myturtle=None, radius=0):
+  myturtle.penup()
+  myturtle.goto(0,-1)
+  myturtle.pendown()
+  myturtle.circle(radius)
+  myturtle.penup()
 
+def isInCircle(myturtle=None, circle_center_x=0, circle_center_y=0, radius=0):
+  if myturtle.distance(circle_center_x,circle_center_y) <= radius:
+    myturtle.pendown()
+    myturtle.dot(3, "blue")
+    myturtle.penup()
+    return True
+  else:
+    myturtle.pendown()
+    myturtle.dot(3, "red")
+    myturtle.penup()
+    return False
 
+def setUpDartboard(myscreen=None,myturtle=None):
+  setupWindow(myscreen)
+  drawSquare(myturtle,width=2, top_left_x=-1, top_left_y=-1)
+  drawCircle(myturtle, radius=1)
+  drawLine(myturtle, x_start=-1, y_start=0, x_end=0, y_end=0)
+  drawLine(myturtle, x_start=0, y_start=-1, x_end=0, y_end=1)
+#throwdart: 
+  
+def throwDart(myturtle=None):
+  myturtle.goto(random.uniform(-1,1),random.uniform(-1,1))
+  isInCircle(myturtle,0,0,1)
+  myturtle.penup()
+
+def playDarts(myturtle=None):
+  player1_score = 0  #odd
+  player2_score = 0  #even
+  for i in range(10):
+    throwDart(myturtle)
+    if (i%2 == 1) and isInCircle(myturtle,0,0,1) == True:
+      player1_score += 1
+    if (i%2 == 0) and isInCircle(myturtle,0,0,1) == True:
+      player2_score += 1
+  print("Player 1 score: " ,player1_score)
+  print("Player 2 score: " ,player2_score)
+  if player1_score < player2_score:
+    print("player2 wins!")
+  elif player1_score > player2_score:
+    print("player1 wins!")
+  else:
+    print("Tie")
+
+#PART C 
+def montePi(myturtle=None, number_darts=0):
+  inside_count = 0
+  for i in range(number_darts):
+    throwDart(myturtle)
+    if isInCircle(myturtle,0,0,1) == True:
+      inside_count += 1
+  return (inside_count/number_darts)*4
 #########################################################
 #         Do not alter any code below here              #
 #       Your code must work with the main proivided     #
